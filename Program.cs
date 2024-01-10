@@ -8,7 +8,20 @@ namespace MyExperience {
     static int exp = 0;
     static int oldExp = exp;
     static int lvl = 0;
-    static int[] expGains = new[] {25, 50, 75, 100, 150, 200, 250, 300, 500};
+    static int expValue1 = 25;
+    static int expValue2 = expValue1 * 3;
+    static int expValue3 = expValue1 * 10;
+    static int[] expGains = new[] {
+      expValue1,
+      expValue1<<1,
+      expValue2,
+      expValue1<<2,
+      expValue2<<1,
+      expValue1<<3,
+      expValue3,
+      expValue2<<2,
+      expValue3<<1
+    };
     static string select = "";
     static int selectedOption = 0;
     static string[] wannaDo = new[]
@@ -23,7 +36,7 @@ namespace MyExperience {
     static string[] adminsList = new string[] {
       "Teagar",
     };
-    static string invalidMessage = "This is a invalid value, plz add a valid value";
+
     static bool isAdmin = false;
 
     // Start
@@ -58,7 +71,6 @@ namespace MyExperience {
           HandleInvalidOption();
           break;
       }
-      // GoBack();
     }
 
     static void Main(string[] args)
@@ -111,56 +123,90 @@ namespace MyExperience {
       Console.WriteLine("You have admin power");
     }
 
-    static void HandleInvalidOption() 
+    static void HandleInvalidOption()
     {
-
       Console.Clear();
-      Console.WriteLine($"\n{invalidMessage}\n");
       Start();
     }
 
-    static void BuildOptions(string[] array, string message = "What do you wanna do?")
+    static void BuildOptions(
+        string[] array,
+        string message = "What do you wanna do?",
+        string sufix = "",
+        string error = "This is a invalid value, plz add a valid value")
     {
 
-      Console.WriteLine($"{message}\n");
+      int count = 0;
+      do {
 
-      foreach (string item in array)
-      {
+        if (count > 0) {
 
-        int index = Array.IndexOf(array, item) + 1;
-        string option = $"[{index}]\t{item}";
+          Console.Clear();
+          Console.WriteLine($"{error}\n");
+        }
+
+        Console.WriteLine($"{message}\n");
+
+        foreach (string item in array)
+        {
+
+          int index = Array.IndexOf(array, item) + 1;
+          string option = $"[{index}]\t{item}{sufix}";
 
 
-        Console.WriteLine(option); 
-      }
+          Console.WriteLine(option); 
+        }
 
-      Console.Write($"\nChoose your option [1, {array.Length}]: ");
+        Console.Write($"\nChoose your option [1, {array.Length}]: ");
 
-      select = Console.ReadLine();
+        select = Console.ReadLine();
 
-      Int32.TryParse(select, out selectedOption);
+        Int32.TryParse(select, out selectedOption);
+        
+        count++;
+
+      } while(selectedOption > array.Length || selectedOption < 1);
+
     }
 
-    static void BuildOptions(int[] array, string message = "What do you wanna do?", string sufix = "")
+    static void BuildOptions(
+        int[] array,
+        string message = "What do you wanna do?",
+        string sufix = "",
+        string error = "This is a invalid value, plz add a valid value")
     {
 
-      Console.WriteLine($"{message}\n");
+      int count = 0;
+      do {
 
-      foreach (int item in array)
-      {
+        if (count > 0) {
 
-        int index = Array.IndexOf(array, item) + 1;
-        string option = $"[{index}]\t{item}{sufix}";
+          Console.Clear();
+          Console.WriteLine($"{error}\n");
+        }
+
+        Console.WriteLine($"{message}\n");
+
+        foreach (int item in array)
+        {
+
+          int index = Array.IndexOf(array, item) + 1;
+          string option = $"[{index}]\t{item}{sufix}";
 
 
-        Console.WriteLine(option); 
-      }
+          Console.WriteLine(option); 
+        }
 
-      Console.Write($"\nChoose your option [1, {array.Length}]: ");
+        Console.Write($"\nChoose your option [1, {array.Length}]: ");
 
-      select = Console.ReadLine();
+        select = Console.ReadLine();
 
-      Int32.TryParse(select, out selectedOption);
+        Int32.TryParse(select, out selectedOption);
+
+        count++;
+
+      } while(selectedOption > array.Length || selectedOption < 1);
+
     }
 
     static void ExpControl(string mode)
@@ -172,12 +218,6 @@ namespace MyExperience {
 
         Console.Clear();
         BuildOptions(expGains, "How much?", sufix: "xp");
-        while (selectedOption > expGains.Length || selectedOption < 1) {
-
-          Console.Clear();
-          Console.WriteLine($"\n{invalidMessage}\n");
-          BuildOptions(expGains, "How much?", sufix: "xp");
-        }
         amount = expGains[selectedOption - 1];
         int totalGains = amount - exp;
         exp += amount;
@@ -187,12 +227,6 @@ namespace MyExperience {
         
         Console.Clear();
         BuildOptions(expGains, "How much?");
-        while (selectedOption > expGains.Length || selectedOption < 1) {
-
-          Console.Clear();
-          Console.WriteLine($"\n{invalidMessage}\n");
-          BuildOptions(expGains, "How much?", sufix: "xp");
-        }
         amount = expGains[selectedOption - 1];
         int totalRemove = exp - amount;
         exp -= amount;
@@ -210,12 +244,6 @@ namespace MyExperience {
 
         Console.Clear();
         BuildOptions(expGains, "How much?", sufix: "xp");
-        while (selectedOption > expGains.Length || selectedOption < 1) {
-
-          Console.Clear();
-          Console.WriteLine($"\n{invalidMessage}\n");
-          BuildOptions(expGains, "How much?", sufix: "xp");
-        }
         amount = expGains[selectedOption - 1];
         int totalGains = amount - exp;
         exp += amount;
@@ -225,12 +253,6 @@ namespace MyExperience {
         
         Console.Clear();
         BuildOptions(expGains, "How much?");
-        while (selectedOption > expGains.Length || selectedOption < 1) {
-
-          Console.Clear();
-          Console.WriteLine($"\n{invalidMessage}\n");
-          BuildOptions(expGains, "How much?", sufix: "xp");
-        }
         amount = expGains[selectedOption - 1];
         int totalRemove = exp - amount;
         exp -= amount;
