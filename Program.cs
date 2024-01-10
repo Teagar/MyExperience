@@ -6,9 +6,10 @@ namespace MyExperience {
 
     // Variables
     static int exp = 0;
+    static int oldExp = exp;
     static int lvl = 0;
     static int[] expGains = new[] {25, 50, 75, 100, 150, 200, 250, 300, 500};
-    static string select;
+    static string select = "";
     static int numberSelect = 0;
     static string[] wannaDo = new[]
     {
@@ -19,6 +20,11 @@ namespace MyExperience {
       "Admin Power",
       "Close",
     };
+    static string[] adminsList = new string[] {
+      "Teagar",
+    };
+    static string invalidMessage = "This is a invalid value, plz add a valid value";
+    static bool isAdmin = false;
 
     // Start
     static void Start() {
@@ -37,24 +43,30 @@ namespace MyExperience {
           Console.WriteLine("In workin...");
           break;
         case 3:
-          Console.Write("How much xp do U want add?\n > ");
-          select = Console.ReadLine();
-          Int32.TryParse(select, out numberSelect);
-          int oldExp = exp;
-          int totalGains = GainExp(numberSelect);
-          Console.WriteLine($"Your old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+          int totalGains = 0;
+          oldExp = exp;
+          ExpControl("add", out totalGains);
+          Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
           break;
         case 4:
-          Console.Write("How much exp do you want remove?\n > ");
-          select = Console.ReadLine();
-          Int32.TryParse(select, out numberSelect);
+          int totalRemove = 0;
           oldExp = exp;
-          int totalRemove = RemoveExp(numberSelect);
-          Console.WriteLine($"Your old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+          ExpControl("remove", out totalRemove);
+          Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+          break;
+        case 5:
+          if (isAdmin == false) {
+            Console.WriteLine("You don't have admin powa!");
+            return;
+          }
+          Console.WriteLine("You have admin power");
+          break;
+        case 6:
+          Console.Clear();
           break;
         default:
-          Console.WriteLine("This is a invalid value, plz add a valid value");
           Console.Clear();
+          Console.WriteLine($"\n{invalidMessage}\n");
           Start();
           break;
       }
@@ -91,6 +103,104 @@ namespace MyExperience {
       select = Console.ReadLine();
 
       Int32.TryParse(select, out numberSelect);
+    }
+
+    static void BuildOptions(int[] array, string message = "What do you wanna do?", string sufix = "")
+    {
+
+      Console.WriteLine($"{message}\n");
+
+      foreach (int item in array)
+      {
+
+        int index = Array.IndexOf(array, item) + 1;
+        string option = $"[{index}]\t{item}{sufix}";
+
+
+        Console.WriteLine(option); 
+      }
+
+      Console.Write($"\nChoose your option [1, {array.Length}]: ");
+
+      select = Console.ReadLine();
+
+      Int32.TryParse(select, out numberSelect);
+    }
+
+    static void ExpControl(string mode)
+    {
+      int amount = 0;
+      int total = 0;
+
+      if (mode == "add") {
+
+        Console.Clear();
+        BuildOptions(expGains, "How much?", sufix: "xp");
+        while (numberSelect > expGains.Length || numberSelect < 1) {
+
+          Console.Clear();
+          Console.WriteLine($"\n{invalidMessage}\n");
+          BuildOptions(expGains, "How much?", sufix: "xp");
+        }
+        amount = expGains[numberSelect - 1];
+        int totalGains = amount - exp;
+        exp += amount;
+
+        total = totalGains;
+      } else if (mode == "remove") {
+        
+        Console.Clear();
+        BuildOptions(expGains, "How much?");
+        while (numberSelect > expGains.Length || numberSelect < 1) {
+
+          Console.Clear();
+          Console.WriteLine($"\n{invalidMessage}\n");
+          BuildOptions(expGains, "How much?", sufix: "xp");
+        }
+        amount = expGains[numberSelect - 1];
+        int totalRemove = exp - amount;
+        exp -= amount;
+
+        total = totalRemove;
+      }
+    }
+
+    static void ExpControl(string mode, out int total)
+    {
+      int amount = 0;
+      total = 0;
+
+      if (mode == "add") {
+
+        Console.Clear();
+        BuildOptions(expGains, "How much?", sufix: "xp");
+        while (numberSelect > expGains.Length || numberSelect < 1) {
+
+          Console.Clear();
+          Console.WriteLine($"\n{invalidMessage}\n");
+          BuildOptions(expGains, "How much?", sufix: "xp");
+        }
+        amount = expGains[numberSelect - 1];
+        int totalGains = amount - exp;
+        exp += amount;
+
+        total = totalGains;
+      } else if (mode == "remove") {
+        
+        Console.Clear();
+        BuildOptions(expGains, "How much?");
+        while (numberSelect > expGains.Length || numberSelect < 1) {
+
+          Console.Clear();
+          Console.WriteLine($"\n{invalidMessage}\n");
+          BuildOptions(expGains, "How much?", sufix: "xp");
+        }
+        amount = expGains[numberSelect - 1];
+        int totalRemove = exp - amount;
+        exp -= amount;
+
+        total = totalRemove;
+      }
     }
 
     static int GainExp(int amount)

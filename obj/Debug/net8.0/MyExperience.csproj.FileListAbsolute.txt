@@ -12,3 +12,4 @@ C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\refint\MyExperience.dll
 C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.pdb
 C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.genruntimeconfig.cache
 C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\ref\MyExperience.dll
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.sourcelink.json
