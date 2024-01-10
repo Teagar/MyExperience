@@ -1,0 +1,14 @@
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.AssemblyInfoInputs.cache
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.AssemblyInfo.cs
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.csproj.CoreCompileInputs.cache
+C:\Users\cyano\work\CSharp\MyExperience\bin\Debug\net8.0\MyExperience.exe
+C:\Users\cyano\work\CSharp\MyExperience\bin\Debug\net8.0\MyExperience.deps.json
+C:\Users\cyano\work\CSharp\MyExperience\bin\Debug\net8.0\MyExperience.runtimeconfig.json
+C:\Users\cyano\work\CSharp\MyExperience\bin\Debug\net8.0\MyExperience.dll
+C:\Users\cyano\work\CSharp\MyExperience\bin\Debug\net8.0\MyExperience.pdb
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.dll
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\refint\MyExperience.dll
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.pdb
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\MyExperience.genruntimeconfig.cache
+C:\Users\cyano\work\CSharp\MyExperience\obj\Debug\net8.0\ref\MyExperience.dll
