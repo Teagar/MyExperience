@@ -10,7 +10,7 @@ namespace MyExperience {
     static int lvl = 0;
     static int[] expGains = new[] {25, 50, 75, 100, 150, 200, 250, 300, 500};
     static string select = "";
-    static int numberSelect = 0;
+    static int selectedOption = 0;
     static string[] wannaDo = new[]
     {
       "Show Level",
@@ -33,41 +33,29 @@ namespace MyExperience {
 
       BuildOptions(wannaDo);
 
-      switch (numberSelect)
+      switch (selectedOption)
       {
 
         case 1:
-          Console.WriteLine($"Your current level is: {lvl}\n");
+          ShowLevel();
           break;
         case 2:
-          Console.WriteLine("In workin...");
+          ShowNextLevelProgress();
           break;
         case 3:
-          int totalGains = 0;
-          oldExp = exp;
-          ExpControl("add", out totalGains);
-          Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+          AddExperience();
           break;
         case 4:
-          int totalRemove = 0;
-          oldExp = exp;
-          ExpControl("remove", out totalRemove);
-          Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+          RemoveExperience();
           break;
         case 5:
-          if (isAdmin == false) {
-            Console.WriteLine("You don't have admin powa!");
-            return;
-          }
-          Console.WriteLine("You have admin power");
+          CheckAdmin();
           break;
         case 6:
           Console.Clear();
           break;
         default:
-          Console.Clear();
-          Console.WriteLine($"\n{invalidMessage}\n");
-          Start();
+          HandleInvalidOption();
           break;
       }
       // GoBack();
@@ -82,6 +70,54 @@ namespace MyExperience {
     }
     
     // Functions 
+
+    static void ShowLevel()
+    {
+
+      Console.WriteLine($"Your current level is: {lvl}\n");
+    }
+
+    static void ShowNextLevelProgress()
+    {
+
+      Console.WriteLine("In workin...");
+    }
+
+    static void AddExperience()
+    {
+
+      int totalGains = 0;
+      oldExp = exp;
+      ExpControl("add", out totalGains);
+      Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+    }
+
+    static void RemoveExperience()
+    {
+
+      int totalRemove = 0;
+      oldExp = exp;
+      ExpControl("remove", out totalRemove);
+      Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+    }
+
+    static void CheckAdmin()
+    {
+
+      if (isAdmin == false) {
+        Console.WriteLine("You don't have admin powa!");
+        return;
+      }
+      Console.WriteLine("You have admin power");
+    }
+
+    static void HandleInvalidOption() 
+    {
+
+      Console.Clear();
+      Console.WriteLine($"\n{invalidMessage}\n");
+      Start();
+    }
 
     static void BuildOptions(string[] array, string message = "What do you wanna do?")
     {
@@ -102,7 +138,7 @@ namespace MyExperience {
 
       select = Console.ReadLine();
 
-      Int32.TryParse(select, out numberSelect);
+      Int32.TryParse(select, out selectedOption);
     }
 
     static void BuildOptions(int[] array, string message = "What do you wanna do?", string sufix = "")
@@ -124,7 +160,7 @@ namespace MyExperience {
 
       select = Console.ReadLine();
 
-      Int32.TryParse(select, out numberSelect);
+      Int32.TryParse(select, out selectedOption);
     }
 
     static void ExpControl(string mode)
@@ -136,13 +172,13 @@ namespace MyExperience {
 
         Console.Clear();
         BuildOptions(expGains, "How much?", sufix: "xp");
-        while (numberSelect > expGains.Length || numberSelect < 1) {
+        while (selectedOption > expGains.Length || selectedOption < 1) {
 
           Console.Clear();
           Console.WriteLine($"\n{invalidMessage}\n");
           BuildOptions(expGains, "How much?", sufix: "xp");
         }
-        amount = expGains[numberSelect - 1];
+        amount = expGains[selectedOption - 1];
         int totalGains = amount - exp;
         exp += amount;
 
@@ -151,13 +187,13 @@ namespace MyExperience {
         
         Console.Clear();
         BuildOptions(expGains, "How much?");
-        while (numberSelect > expGains.Length || numberSelect < 1) {
+        while (selectedOption > expGains.Length || selectedOption < 1) {
 
           Console.Clear();
           Console.WriteLine($"\n{invalidMessage}\n");
           BuildOptions(expGains, "How much?", sufix: "xp");
         }
-        amount = expGains[numberSelect - 1];
+        amount = expGains[selectedOption - 1];
         int totalRemove = exp - amount;
         exp -= amount;
 
@@ -174,13 +210,13 @@ namespace MyExperience {
 
         Console.Clear();
         BuildOptions(expGains, "How much?", sufix: "xp");
-        while (numberSelect > expGains.Length || numberSelect < 1) {
+        while (selectedOption > expGains.Length || selectedOption < 1) {
 
           Console.Clear();
           Console.WriteLine($"\n{invalidMessage}\n");
           BuildOptions(expGains, "How much?", sufix: "xp");
         }
-        amount = expGains[numberSelect - 1];
+        amount = expGains[selectedOption - 1];
         int totalGains = amount - exp;
         exp += amount;
 
@@ -189,13 +225,13 @@ namespace MyExperience {
         
         Console.Clear();
         BuildOptions(expGains, "How much?");
-        while (numberSelect > expGains.Length || numberSelect < 1) {
+        while (selectedOption > expGains.Length || selectedOption < 1) {
 
           Console.Clear();
           Console.WriteLine($"\n{invalidMessage}\n");
           BuildOptions(expGains, "How much?", sufix: "xp");
         }
-        amount = expGains[numberSelect - 1];
+        amount = expGains[selectedOption - 1];
         int totalRemove = exp - amount;
         exp -= amount;
 
