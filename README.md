@@ -12,7 +12,7 @@
 
 ## Overview
 
-The MyExperience project is a console application that aims to manage user expperience in a dynamic way.
+The MyExperience project is a console application that aims to manage user experience in a dynamic way.
 
 <br/>
 
