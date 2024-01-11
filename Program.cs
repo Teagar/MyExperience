@@ -62,7 +62,7 @@ namespace MyExperience {
           RemoveExperience();
           break;
         case 5:
-          CheckAdmin();
+          AdminControl();
           break;
         case 6:
           Console.Clear();
@@ -113,14 +113,96 @@ namespace MyExperience {
       Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
     }
 
-    static void CheckAdmin()
+    static void AdminAddExperience()
     {
 
-      if (isAdmin == false) {
-        Console.WriteLine("You don't have admin powa!");
+      int totalGains = 0;
+      oldExp = exp;
+      ExpControl("adminAdd", out totalGains);
+      Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+    }
+
+    static void AdminRemoveExperience()
+    {
+
+      int totalRemove = 0;
+      oldExp = exp;
+      ExpControl("adminRemove", out totalRemove);
+      Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+    }
+
+    static bool IsAdmin(string user)
+    {
+
+      if (adminsList.Contains(user)) {
+        return true;
+      }
+      return false;
+    }
+
+    static void AdminControl()
+    {
+
+      Console.Clear();
+      Console.Write("Who are you?\n\t> ");
+      string userName = Console.ReadLine();
+      Console.Clear();
+      if(!IsAdmin(userName)) {
+        Console.WriteLine($"{userName} isn't a admin");
         return;
       }
-      Console.WriteLine("You have admin power");
+      string[] adminOptions = new string[] {
+        "View admin list",
+        "View all members xp",
+        "Add admin exp in any member",
+        "Remove admin exp in any member",
+        "Add new admin",
+        "Remove a admin",
+        "Close",
+      };
+      BuildOptions(adminOptions, message: $"My lord, {userName}, what do you wanna do?");
+      switch(selectedOption)
+      {
+
+        case 1:
+          ShowAdmins();
+          break;
+        case 2:
+          Console.Clear();
+          Console.WriteLine("In workin...");
+          break;
+        case 3:
+          AdminAddExperience();
+          break;
+        case 4:
+          AdminRemoveExperience();
+          break;
+        case 5:
+          AddAdmin();
+          break;
+        case 6:
+          // RemoveAdmin();
+          break;
+        case 7:
+          Console.Clear();
+          break;
+        default:
+          HandleInvalidOption();
+          break;
+      }
+
+    }
+
+    static void ShowAdmins()
+    {
+
+      Console.Clear();
+      Console.WriteLine("Admins list:\n");
+      foreach (string admin in adminsList)
+      {
+
+        Console.WriteLine($"[{Array.IndexOf(adminsList, admin) + 1}]\t {admin}");
+      }
     }
 
     static void HandleInvalidOption()
@@ -157,7 +239,9 @@ namespace MyExperience {
           Console.WriteLine(option); 
         }
 
-        Console.Write($"\nChoose your option [1, {array.Length}]: ");
+        int checkArrayLength = (array.Length == 0 ? 0 : 1);
+
+        Console.Write($"\nChoose your option [{checkArrayLength}, {array.Length}]: ");
 
         select = Console.ReadLine();
 
@@ -232,6 +316,20 @@ namespace MyExperience {
         exp -= amount;
 
         total = totalRemove;
+      } else if (mode == "adminAdd") {
+
+        Console.Clear();
+        Console.Write("How much?\n\t > ");
+        amount = Int32.Parse(Console.ReadLine());
+        int totalGains = amount - exp;
+        exp += amount;
+      } else if (mode == "adminRemove") {
+
+        Console.Clear();
+        Console.Write("How much?\n\t > ");
+        amount = Int32.Parse(Console.ReadLine());
+        int totalRemove = exp - amount;
+        exp -= amount;
       }
     }
 
@@ -258,7 +356,39 @@ namespace MyExperience {
         exp -= amount;
 
         total = totalRemove;
+      } else if (mode == "adminAdd") {
+
+        Console.Clear();
+        Console.Write("How much?\n\t > ");
+        amount = Int32.Parse(Console.ReadLine());
+        int totalGains = amount - exp;
+        exp += amount;
+
+        total = totalGains;
+      } else if (mode == "adminRemove") {
+
+        Console.Clear();
+        Console.Write("How much?\n\t > ");
+        amount = Int32.Parse(Console.ReadLine());
+        int totalRemove = exp - amount;
+        exp -= amount;
+
+        total = totalRemove;
       }
+    }
+
+    static void AddAdmin()
+    {
+      string admin = Console.ReadLine();
+      for (int i = 0; i <= adminsList.Length; i++)
+      {
+
+        if (i == adminsList.Length) {
+          adminsList[i] = admin;
+          ShowAdmins();
+        }
+      }
+
     }
 
     static int GainExp(int amount)
