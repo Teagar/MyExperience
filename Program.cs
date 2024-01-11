@@ -38,8 +38,6 @@ namespace MyExperience {
       "Cerqueira",
     };
 
-    static bool isAdmin = false;
-
     // Start
     static void Start() {
 
