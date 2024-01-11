@@ -177,20 +177,10 @@ namespace MyExperience {
           AdminRemoveExperience();
           break;
         case 5:
-          Console.Clear();
-          string itemAdd = "";
-          Console.Write($"Which person will be a admin\n\t > ");
-          AdminControl("add", out itemAdd);
-          Console.WriteLine($"\"{itemAdd}\" has add in the admin list");
-
-
+          AdminAdd();
           break;
         case 6:
-          string itemRemoved = "";
-          Console.Clear();
-          Console.Write($"Which admin you will remove?\n\t > ");
-          AdminControl("remove", out itemRemoved);
-          Console.WriteLine($"\"{itemRemoved}\" has add in the admin list");
+          AdminRemove();
           break;
         case 7:
           Console.Clear();
@@ -440,6 +430,26 @@ namespace MyExperience {
           item = admin;
         }
       }
+    }
+    
+    static void AdminAdd()
+    {
+
+      Console.Clear();
+      string itemAdd = "";
+      Console.Write($"Which person will be a admin\n\t > ");
+      AdminControl("add", out itemAdd);
+      Console.WriteLine($"\"{itemAdd}\" has add in the admin list");
+    }
+
+    static void AdminRemove()
+    {
+
+      Console.Clear();
+      string itemRemoved = "";
+      Console.Write($"Which admin you will remove?\n\t > ");
+      AdminControl("remove", out itemRemoved);
+      Console.WriteLine($"\"{itemRemoved}\" has add in the admin list");
     }
 
     static int GainExp(int amount)
