@@ -22,7 +22,7 @@ namespace MyExperience {
       expValue2<<2,
       expValue3<<1
     };
-    static string select = "";
+    static string? select = "";
     static int selectedOption = 0;
     static string[] wannaDo = new[]
     {
@@ -35,6 +35,7 @@ namespace MyExperience {
     };
     static string[] adminsList = new string[] {
       "Teagar",
+      "Cerqueira",
     };
 
     static bool isAdmin = false;
@@ -145,9 +146,9 @@ namespace MyExperience {
 
       Console.Clear();
       Console.Write("Who are you?\n\t> ");
-      string userName = Console.ReadLine();
+      string? userName = Console.ReadLine();
       Console.Clear();
-      if(!IsAdmin(userName)) {
+      if(userName != null && !IsAdmin(userName)) {
         Console.WriteLine($"{userName} isn't a admin");
         return;
       }
@@ -320,14 +321,14 @@ namespace MyExperience {
 
         Console.Clear();
         Console.Write("How much?\n\t > ");
-        amount = Int32.Parse(Console.ReadLine());
+        Int32.TryParse(Console.ReadLine(), out amount);
         int totalGains = amount - exp;
         exp += amount;
       } else if (mode == "adminRemove") {
 
         Console.Clear();
         Console.Write("How much?\n\t > ");
-        amount = Int32.Parse(Console.ReadLine());
+        Int32.TryParse(Console.ReadLine(), out amount);
         int totalRemove = exp - amount;
         exp -= amount;
       }
@@ -360,7 +361,7 @@ namespace MyExperience {
 
         Console.Clear();
         Console.Write("How much?\n\t > ");
-        amount = Int32.Parse(Console.ReadLine());
+        Int32.TryParse(Console.ReadLine(), out amount);
         int totalGains = amount - exp;
         exp += amount;
 
@@ -369,7 +370,7 @@ namespace MyExperience {
 
         Console.Clear();
         Console.Write("How much?\n\t > ");
-        amount = Int32.Parse(Console.ReadLine());
+        Int32.TryParse(Console.ReadLine(), out amount);
         int totalRemove = exp - amount;
         exp -= amount;
 
@@ -379,16 +380,16 @@ namespace MyExperience {
 
     static void AddAdmin()
     {
-      string admin = Console.ReadLine();
+
+      string? admin = Console.ReadLine();
       for (int i = 0; i <= adminsList.Length; i++)
       {
 
         if (i == adminsList.Length) {
-          adminsList[i] = admin;
+          // adminsList[i] = admin;
           ShowAdmins();
         }
       }
-
     }
 
     static int GainExp(int amount)
