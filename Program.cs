@@ -61,7 +61,7 @@ namespace MyExperience {
           RemoveExperience();
           break;
         case 5:
-          AdminControl();
+          AdminMenu();
           break;
         case 6:
           Console.Clear();
@@ -139,7 +139,7 @@ namespace MyExperience {
       return false;
     }
 
-    static void AdminControl()
+    static void AdminMenu()
     {
 
       Console.Clear();
@@ -177,10 +177,20 @@ namespace MyExperience {
           AdminRemoveExperience();
           break;
         case 5:
-          AddAdmin();
+          Console.Clear();
+          string itemAdd = "";
+          Console.Write($"Which person will be a admin\n\t > ");
+          AdminControl("add", out itemAdd);
+          Console.WriteLine($"\"{itemAdd}\" has add in the admin list");
+
+
           break;
         case 6:
-          // RemoveAdmin();
+          string itemRemoved = "";
+          Console.Clear();
+          Console.Write($"Which admin you will remove?\n\t > ");
+          AdminControl("remove", out itemRemoved);
+          Console.WriteLine($"\"{itemRemoved}\" has add in the admin list");
           break;
         case 7:
           Console.Clear();
@@ -376,16 +386,58 @@ namespace MyExperience {
       }
     }
 
-    static void AddAdmin()
+    static void AdminControl(string mode)
     {
+      if (mode == "add") {
 
-      string? admin = Console.ReadLine();
-      for (int i = 0; i <= adminsList.Length; i++)
-      {
+        string? admin = Console.ReadLine();
 
-        if (i == adminsList.Length) {
-          // adminsList[i] = admin;
-          ShowAdmins();
+        if (admin != null) {
+
+        Array.Resize(ref adminsList,  adminsList.Length + 1);
+        adminsList[adminsList.Length - 1] = admin;
+        }
+      } else if (mode == "remove") {
+
+        string? admin = Console.ReadLine();
+        int indexToRemove = Array.IndexOf(adminsList, admin);
+
+        if (indexToRemove != -1 && admin != null) {
+          for (int i = indexToRemove; i < adminsList.Length - 1; i++) {
+            adminsList[i] = adminsList[i + 1];
+          }
+          Array.Resize(ref adminsList, adminsList.Length - 1);
+        }
+      }
+    }
+
+    static void AdminControl(string mode, out string item)
+    {
+      item = "";
+
+      if (mode == "add") {
+
+        string? admin = Console.ReadLine();
+
+        if (admin != null) {
+
+        Array.Resize(ref adminsList,  adminsList.Length + 1);
+        adminsList[adminsList.Length - 1] = admin;
+
+        item = admin;
+        }
+      } else if (mode == "remove") {
+
+        string? admin = Console.ReadLine();
+        int indexToRemove = Array.IndexOf(adminsList, admin);
+
+        if (indexToRemove != -1 && admin != null) {
+          for (int i = indexToRemove; i < adminsList.Length - 1; i++) {
+            adminsList[i] = adminsList[i + 1];
+          }
+          Array.Resize(ref adminsList, adminsList.Length - 1);
+
+          item = admin;
         }
       }
     }
