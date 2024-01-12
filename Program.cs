@@ -64,7 +64,7 @@ namespace MyExperience {
           AdminMenu();
           break;
         case 6:
-          Console.Clear();
+          CloseApp();
           break;
         default:
           HandleInvalidOption();
@@ -92,6 +92,13 @@ namespace MyExperience {
     {
 
       Console.WriteLine("In workin...");
+    }
+
+    static void CloseApp()
+    {
+
+      Console.Clear();
+      System.Environment.Exit(0);
     }
 
     static void AddExperience()
@@ -183,7 +190,7 @@ namespace MyExperience {
           AdminRemove();
           break;
         case 7:
-          Console.Clear();
+          CloseApp();
           break;
         default:
           HandleInvalidOption();
