@@ -86,12 +86,18 @@ namespace MyExperience {
     {
 
       Console.WriteLine($"Your current level is: {lvl}\n");
+      Console.ReadKey();
+      Console.Clear();
+      Start();
     }
 
     static void ShowNextLevelProgress()
     {
 
       Console.WriteLine("In workin...");
+      Console.ReadKey();
+      Console.Clear();
+      Start();
     }
 
     static void CloseApp()
@@ -99,6 +105,9 @@ namespace MyExperience {
 
       Console.Clear();
       System.Environment.Exit(0);
+      Console.ReadKey();
+      Console.Clear();
+      Start();
     }
 
     static void AddExperience()
@@ -108,6 +117,9 @@ namespace MyExperience {
       oldExp = exp;
       ExpControl("add", out totalGains);
       Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+      Console.ReadKey();
+      Console.Clear();
+      Start();
     }
 
     static void RemoveExperience()
@@ -117,6 +129,9 @@ namespace MyExperience {
       oldExp = exp;
       ExpControl("remove", out totalRemove);
       Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+      Console.ReadKey();
+      Console.Clear();
+      Start();
     }
 
     static void AdminAddExperience()
@@ -126,6 +141,8 @@ namespace MyExperience {
       oldExp = exp;
       ExpControl("adminAdd", out totalGains);
       Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalGains}");
+      Console.ReadKey();
+      AdminMenu();
     }
 
     static void AdminRemoveExperience()
@@ -135,6 +152,8 @@ namespace MyExperience {
       oldExp = exp;
       ExpControl("adminRemove", out totalRemove);
       Console.WriteLine($"\nYour old exp is: {oldExp} and now is: {exp}\nYour total gain is: {totalRemove}");
+      Console.ReadKey();
+      AdminMenu();
     }
 
     static bool IsAdmin(string user)
@@ -155,7 +174,9 @@ namespace MyExperience {
       Console.Clear();
       if(userName != null && !IsAdmin(userName)) {
         Console.WriteLine($"{userName} isn't a admin");
-        return;
+        Console.ReadKey();
+        Console.Clear();
+        Start();
       }
       string[] adminOptions = new string[] {
         "View admin list",
@@ -164,6 +185,7 @@ namespace MyExperience {
         "Remove admin exp in any member",
         "Add new admin",
         "Remove a admin",
+        "Exit admin mode",
         "Close",
       };
       BuildOptions(adminOptions, message: $"My lord, {userName}, what do you wanna do?");
@@ -190,6 +212,9 @@ namespace MyExperience {
           AdminRemove();
           break;
         case 7:
+          ExitAdminMenu();
+          break;
+        case 8:
           CloseApp();
           break;
         default:
@@ -209,6 +234,8 @@ namespace MyExperience {
 
         Console.WriteLine($"[{Array.IndexOf(adminsList, admin) + 1}]\t {admin}");
       }
+      Console.ReadKey();
+      AdminMenu();
     }
 
     static void HandleInvalidOption()
@@ -447,6 +474,8 @@ namespace MyExperience {
       Console.Write($"Which person will be a admin\n\t > ");
       AdminControl("add", out itemAdd);
       Console.WriteLine($"\"{itemAdd}\" has add in the admin list");
+      Console.ReadKey();
+      AdminMenu();
     }
 
     static void AdminRemove()
@@ -456,7 +485,16 @@ namespace MyExperience {
       string itemRemoved = "";
       Console.Write($"Which admin you will remove?\n\t > ");
       AdminControl("remove", out itemRemoved);
-      Console.WriteLine($"\"{itemRemoved}\" has add in the admin list");
+      Console.WriteLine($"\"{itemRemoved}\" has removed in the admin list");
+      Console.ReadKey();
+      AdminMenu();
+    }
+
+    static void ExitAdminMenu()
+    {
+
+      Console.Clear();
+      Start();
     }
 
     static int GainExp(int amount)
